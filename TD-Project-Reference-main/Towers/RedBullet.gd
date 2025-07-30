@@ -25,7 +25,6 @@ func _process(delta):
 			get_node("BulletContainer").get_child(i).queue_free()
 	update_powers()
 func Shoot():
-	
 	var tempBullet = Bullet.instantiate()
 	tempBullet.pathName = pathName
 	tempBullet.bulletDamage = bulletDamage
@@ -58,10 +57,12 @@ func _on_tower_body_exited(body):
 
 func _on_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.button_mask == 1:
-		var towerPath = get_tree().get_root().get_node("Main/Towers")
+		var towerPath = get_tree().get_root().get_node("Main/Towers") 
 		for i in towerPath.get_child_count():
 			if towerPath.get_child(i).name != self.name:
 				towerPath.get_child(i).get_node("Upgrade/Upgrade").hide()
+				towerPath.get_child(i).get_node("Tower/CollisionShape2D").hide()
+		get_node("Tower/CollisionShape2D").visible = !get_node("Tower/CollisionShape2D").visible
 		get_node("Upgrade/Upgrade").visible = !get_node("Upgrade/Upgrade").visible
 		get_node("Upgrade/Upgrade").global_position = self.position + Vector2(-572,81)
 		
@@ -69,14 +70,14 @@ func _on_input_event(viewport, event, shape_idx):
 func _on_range_pressed():
 	if Game.Gold < 10:
 		return  # Если золота меньше 10, функция завершает выполнение
-	else:
+	if range <= 1000-1:
 		range += 30
 		Game.Gold -= 10
 func _on_attack_speed_pressed():
 	if Game.Gold < 10:
 		return
 	
-	if reload <= 3:
+	if reload <= 2:
 		
 		reload += 0.1
 	timer.wait_time = 3 - reload
@@ -86,20 +87,20 @@ func _on_attack_speed_pressed():
 func _on_power_pressed():
 	if Game.Gold < 10:
 		return
-	bulletDamage += 1
-	if Game.Gold >= 10:
-		Game.Gold -= 10
+		
+	if bulletDamage <= 20:
+		bulletDamage += 1
+		if Game.Gold >= 10:
+			Game.Gold -= 10
 		
 func _on_timer_timeout():
 	Shoot()
 
 
-func _on_range_mouse_entered():
-	get_node("Tower/CollisionShape2D").show()
-
-
-func _on_range_mouse_exited():
-	get_node("Tower/CollisionShape2D").hide()
+#func _on_range_mouse_entered():
+	#get_node("Tower/CollisionShape2D").show()
+#func _on_range_mouse_exited():
+	#get_node("Tower/CollisionShape2D").hide()
 
 
 func update_powers():

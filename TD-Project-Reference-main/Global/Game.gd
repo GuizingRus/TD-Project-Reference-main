@@ -1,5 +1,9 @@
 extends Node
 
 
-var Gold = 1000
-var Health = 10
+var Health = 0
+var Gold = 0
+
+#res://MainMenu.tscn::GDScript_ubuel
+#res://main.tscn::GDScript_tiaqs
+#тута и хп и голда^

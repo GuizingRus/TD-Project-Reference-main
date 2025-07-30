@@ -20,3 +20,4 @@ loop = false
 [node name="Solider A" parent="PathSpawner" instance=ExtResource("2_n3pc2")]
 
 [node name="soldier b" parent="PathSpawner" instance=ExtResource("2_6428k")]
+scale = Vector2(3, 3)

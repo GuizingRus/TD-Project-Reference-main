@@ -3,6 +3,11 @@ extends Panel
 @onready var tower = preload("res://Towers/RedBullet.tscn")
 var currTile
 
+func _input(event):
+	if event is InputEventKey and event.keycode == KEY_Z and event.pressed:
+		if get_child_count() > 1:
+			get_child(1).queue_free()
+
 func _on_gui_input(event):
 	if Game.Gold >= 10:
 		var tempTower = tower.instantiate()
@@ -10,10 +15,9 @@ func _on_gui_input(event):
 			
 			add_child(tempTower)
 			tempTower.global_position = event.global_position
-			#tempTower.process_mode = Node.PROCESS_MODE_DISABLED
+			tempTower.process_mode = Node.PROCESS_MODE_DISABLED
 			
-			tempTower.scale = Vector2(0.32,0.32)
-		
+			tempTower.scale = Vector2(1,1) #РАЗМЕР Башни из панели
 		elif event is InputEventMouseMotion and event.button_mask == 1:
 			#button left down and dragging
 			if get_child_count() > 1:
@@ -30,18 +34,19 @@ func _on_gui_input(event):
 					else:
 						get_child(1).get_node("Area").modulate = Color(0,255,0)
 				else:
-					
 					get_child(1).get_node("Area").modulate = Color(255,255,255)
+		
 		elif event is InputEventMouseButton and event.button_mask == 0:
 			#button left release
-			if event.global_position.x >= 2944:
+			if event.global_position.x >= 3340: #граница области где нельзя ставить башни
 				if get_child_count() > 1:
 					get_child(1).queue_free()
+		
 			else:
 				#check for valid tile:
 				if get_child_count() > 1:
 					get_child(1).queue_free()
-				if currTile == Vector2i(4,5):
+				if currTile == Vector2i(4, 5) and get_child_count() > 1:
 					var targets = get_child(1).get_node("TowerDetector").get_overlapping_bodies()
 					var path = get_tree().get_root().get_node("Main/Towers")
 					if (targets.size() < 2):
