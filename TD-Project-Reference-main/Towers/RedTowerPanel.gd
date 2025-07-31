@@ -23,6 +23,7 @@ func _on_gui_input(event):
 			if get_child_count() > 1:
 				
 				get_child(1).global_position = event.global_position
+				get_child(1).get_node("Cancelling").global_position = Vector2(50,1900)
 				#Check if on Dirt Tile.
 				var mapPath = get_tree().get_root().get_node("Main/TileMap")
 				var tile = mapPath.local_to_map(get_global_mouse_position())
@@ -53,6 +54,7 @@ func _on_gui_input(event):
 						path.add_child(tempTower)
 						tempTower.global_position = event.global_position
 						tempTower.get_node("Area").hide()
+						tempTower.get_node("Cancelling").hide()
 						Game.Gold -= 10
 		else:
 			if get_child_count() > 1:

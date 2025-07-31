@@ -257,6 +257,14 @@ script = SubResource("GDScript_oratb")
 [node name="Timer" type="Timer" parent="Upgrade/ProgressBar"]
 wait_time = 3.0
 
+[node name="Cancelling" type="Label" parent="."]
+offset_left = 20.0
+offset_top = 1891.0
+offset_right = 1546.0
+offset_bottom = 2028.0
+theme_override_font_sizes/font_size = 100
+text = "Нажмите \"Z\" что бы отменить"
+
 [connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="body_entered" from="Tower" to="." method="_on_tower_body_entered"]
 [connection signal="body_exited" from="Tower" to="." method="_on_tower_body_exited"]
