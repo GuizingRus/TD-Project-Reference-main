@@ -1,0 +1,6 @@
+Label
+TextureRect
+MarginContainer
+PanelContainer
+CharacterBody2D
+CollisionShape2D
